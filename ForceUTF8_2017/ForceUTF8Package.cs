@@ -1,20 +1,17 @@
-﻿//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // <copyright file="ForceUTF8Package.cs" company="Company">
 //     Copyright (c) Company.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
 using EnvDTE;
 using EnvDTE80;
 using System.IO;
@@ -50,6 +47,7 @@ namespace ForceUTF8
         /// ForceUTF8Package GUID string.
         /// </summary>
         public const string PackageGuidString = "d5ca34f2-6bde-4b84-b853-39c003dbda4d";
+        private static readonly List<string> supportedExts = new List<string> { ".h", ".hpp", ".hxx", ".c", ".cc", ".cpp", ".cxx" };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ForceUTF8Package"/> class.
@@ -90,6 +88,10 @@ namespace ForceUTF8
             }
 
             var path = document.FullName;
+            if (!supportedExts.Exists(ext => ext.Equals(Path.GetExtension(path), StringComparison.OrdinalIgnoreCase)))
+            {
+                return;
+            }
 
             var stream = new FileStream(path, FileMode.Open);
             var reader = new StreamReader(stream, Encoding.Default, true);
