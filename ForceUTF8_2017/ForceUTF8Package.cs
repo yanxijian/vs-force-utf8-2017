@@ -46,7 +46,7 @@ namespace ForceUTF8
         /// <summary>
         /// ForceUTF8Package GUID string.
         /// </summary>
-        public const string PackageGuidString = "d5ca34f2-6bde-4b84-b853-39c003dbda4d";
+        public const string PackageGuidString = "CF944340-C2A5-4B3D-AE0D-FCDAE1E96A9A";
         private static readonly List<string> supportedExts = new List<string> { ".h", ".hpp", ".hxx", ".c", ".cc", ".cpp", ".cxx" };
 
         /// <summary>
